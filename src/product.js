@@ -391,9 +391,9 @@ export const getProductById = (productId) => {
 }
 
 export const productThmbnailSlider = ({product, duration = 2000}) => {
-    // console.log(product?.images);
-    if(!!product && !!product.images && product?.images?.length > 0 ) {
-        let slider = document.getElementById("product-thumb-slider");
+    // console.log(!!product?.images?.length > 0);
+    let slider = document.getElementById("product-thumb-slider");
+    if(!!product && !!product?.images && product?.images?.length > 0 ) {
         let slidesWrapper = slider.querySelector(".slides");
         let bulletWrapper = slider.querySelector(".bullets");
         slidesWrapper.innerHTML = `<img alt="${product?.title}" class="slide-item w-full object-cover object-center rounded" src="${product?.images[0]}">`;
