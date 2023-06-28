@@ -1,18 +1,21 @@
 import { getProductById } from "./product.js";
 import Toast from "./toaster.js";
 
+// Defines cart panel toggle function
 export const toggleCart = () => {
     let triggerOpen = document.querySelector("#open-cart-drawer")
     let triggerClose = document.querySelectorAll(".close-cart")
     let elm = document.querySelector("#cart-menu")
     let cartPanelOuterElem = elm.querySelector(".close-cart-outer")
 
+    // closes the cart panel
     const closeCart = () => {
         if(elm.classList.contains("open")) {
             elm.classList.remove("open");
         }
     }
 
+    // Listens to trigger element to toggles cart panel on click
     triggerOpen.addEventListener("click", () => {
         if(elm.classList.contains("open")) {
             elm.classList.remove("open");
@@ -21,11 +24,14 @@ export const toggleCart = () => {
         }
     })
 
+    // Listens to backdrop element to close cart panel on outiside click
     cartPanelOuterElem.addEventListener("click", (e) => {
+        // Prevents close on clicking cart panel
         if (cartPanelOuterElem !== e.target) return;
         closeCart();
     })
 
+    // listens to all close element to close cart panel on click
     for (let closeElm of triggerClose) {
         closeElm.addEventListener("click", () => {
             closeCart();
@@ -34,6 +40,7 @@ export const toggleCart = () => {
 
 }
 
+// Defines function to get current cart items
 export const cartProducts = () => {
     let cart = [];
     if (localStorage.getItem("cart")) {
@@ -42,6 +49,7 @@ export const cartProducts = () => {
     return cart;
 }
 
+// Defines function to get current cart items total quantity
 export const cartTotalQuantity = () => {
     let cartItems = cartProducts();
     let totalQty = cartItems.reduce((accumulator, currentItem) => {
@@ -50,9 +58,11 @@ export const cartTotalQuantity = () => {
     return totalQty;
 }
 
+// Defines function to get subtotal price of the cart items
 export const getSubTotalPrice = () => {
     let cartItems = cartProducts();
     let totalPrice = 0;
+    // console.log("cartItems in getSubTotalPrice", cartItems);
     if (!!cartItems && cartItems?.length > 0) {
         for(let item of cartItems) {
             let product = getProductById(item.id);
@@ -65,12 +75,14 @@ export const getSubTotalPrice = () => {
     return totalPrice;
 }
 
+// Defines function to get total price of the cart items
 export const getTotalPrice = () => {
     let subTotal = getSubTotalPrice();
     let prevDiscountObject = getDiscount();
-    let totalPrice = subTotal;
+    let totalPrice = subTotal; // sets subtotal price without discount as initial total price
 
-    if(!!prevDiscountObject?.code) {
+    // if there is any discount code applied then subtracts discount from subtotal then set the value as total price
+    if(!!prevDiscountObject && Object.keys(prevDiscountObject).length > 0 && prevDiscountObject.hasOwnProperty(code)) {
         let prevDiscountCode = prevDiscountObject.code;
         let discountValue = applyDiscount(prevDiscountCode);
         totalPrice = subTotal - discountValue;
@@ -79,6 +91,7 @@ export const getTotalPrice = () => {
     return totalPrice;
 }
 
+// Display total price in panel
 export const renderCartItems = (selector) => {
     let cartItems = cartProducts();
     let cartMenuElm = document.querySelector(selector);
@@ -89,12 +102,14 @@ export const renderCartItems = (selector) => {
     let totalPrice = getTotalPrice(); // Gets the initial total price
     // Gets the initial discount string of object. Ex: "{code: 'string'}" || "{}"
     let prevAppliedDiscount = localStorage.getItem("discount");
-    let prevDiscountCode ="";
+    let prevDiscountCode =""; // Sets empty string as the initial discount code
 
-
+    // check if found any string of object as previously applied discount
     if(!!prevAppliedDiscount) {
+        // JSON parse discount string of object if found and gets the code
         prevDiscountCode = JSON.parse(prevAppliedDiscount)?.code;
 
+        // Apply code to get discount value if the code exist
         if(!!prevDiscountCode) {
             let discountValue = applyDiscount(prevDiscountCode);
             // let totalPrice = subTotal - discountValue;
@@ -105,12 +120,12 @@ export const renderCartItems = (selector) => {
             document.querySelector("#discount-form").style.display = "none";
             document.querySelector("#discounted-wrap").style.display = "block";
         } else {
+            // Resets discount if the code doesn't exist
             resetDiscount();
         }
-        // let newDiscountValue = applyDiscount(prevDiscountCode);
     }
 
-    cartListElem.innerHTML = '';
+    cartListElem.innerHTML = ''; // Initially resets cart item list during render
     if (!!cartItems && cartItems?.length > 0) {
         for(let item of cartItems) {
             let product = getProductById(item.id);
@@ -154,9 +169,9 @@ export const renderCartItems = (selector) => {
             }
         }
 
-        cartCountElm.innerHTML = cartTotalQuantity();
-        cartCountElm.style.display = "inline-flex";
-        document.querySelector(".remove-all-wrap").style.display = "block";
+        cartCountElm.innerHTML = cartTotalQuantity(); // Gets and sets cart total quantity in cart badge
+        cartCountElm.style.display = "inline-flex"; // Show cart total quantity badge
+        document.querySelector(".remove-all-wrap").style.display = "block"; // show "Clear Cart" button
 
         let removeBtnList = cartMenuElm.querySelectorAll(".remove-item");
 
@@ -169,19 +184,21 @@ export const renderCartItems = (selector) => {
             })
         }
 
-        increaseCartQty(cartMenuElm);
-        decreaseCartQty(cartMenuElm);
+        increaseCartQty(cartMenuElm); // Initalize cart item quantity increase function
+        decreaseCartQty(cartMenuElm); // Initalize cart item quantity decrease function
 
     } else {
-        resetDiscount();
-        cartCountElm.innerHTML = "0";
-        cartCountElm.style.display = "none";
+
+        // Resets if empty cart during render
+        resetDiscount(); // Initially resets discount
+        cartCountElm.innerHTML = "0"; // Resets total quantity
+        cartCountElm.style.display = "none"; // Hides total quantity count badge
         cartListElem.innerHTML = `
         <div class="flex">
             <span class="inline-block w-full py-10 text-center text-lg font-bold">Emtpy Cart</span>
         </div>
         `;
-        cartMenuElm.querySelector(".remove-all-wrap").style.display = "none";
+        cartMenuElm.querySelector(".remove-all-wrap").style.display = "none"; // Hides "Clear Cart" element
     }
 
     subTotalPriceElem.innerHTML = `$${getSubTotalPrice()}`; // Display sub-total price in panel
@@ -189,11 +206,13 @@ export const renderCartItems = (selector) => {
 
 }
 
+// Define function to add product in cart
 export const addToCart = ({...props}) => {
-    const {id, qty} = props;
-    let itemToBeAdded = getProductById(id);
-    let cartItems = cartProducts();
+    const {id, qty} = props; // Destructures id & qty variable
+    let itemToBeAdded = getProductById(id); // Gets item to be added from id
+    let cartItems = cartProducts(); // Gets current cart item's id and quantity
 
+    // Check if product exist in "Proudcts"
     if(!!itemToBeAdded) {
         let newItem = {
             id: itemToBeAdded.id,
@@ -201,19 +220,21 @@ export const addToCart = ({...props}) => {
             // price: itemToBeAdded.price,
         }
 
+        // Check if item already exists in cart
         let foundItem = cartItems.find((item) => item.id === newItem.id )
 
         if (!!foundItem) {
-            foundItem.quantity += newItem.quantity;
-            localStorage.cart = JSON.stringify([...cartItems]);
+            foundItem.quantity += newItem.quantity; // Increases quantity if found
+            localStorage.cart = JSON.stringify([...cartItems]); // Stores new cart data in local storage
             Toast.success({message: "Product quantity in the cart updated!"});
         } else {
-            localStorage.cart = JSON.stringify([...cartItems, newItem]);
+            localStorage.cart = JSON.stringify([...cartItems, newItem]); // Add new product data in local storage
             Toast.success({message: "Successfully added new product in the cart!"});
         }
 
     }
 
+    // Render cart items after cart data updates
     renderCartItems("#cart-menu");
 
     // console.log("product", itemToBeAdded);
@@ -221,6 +242,7 @@ export const addToCart = ({...props}) => {
 
 }
 
+// Defines function to increase item in cart
 export const increaseCartQty = (cartMenu) => {
     let increaseBtns = cartMenu.querySelectorAll(".increase-qty");
     // console.log('updatedCart =>', increaseBtns);
@@ -243,13 +265,14 @@ export const increaseCartQty = (cartMenu) => {
                 } )
             }
 
-            localStorage.cart = JSON.stringify(updatedCart);
-            renderCartItems("#cart-menu");
+            localStorage.cart = JSON.stringify(updatedCart); // Updates cart data in local storage
+            renderCartItems("#cart-menu"); // Render cart items after cart data updates
         })
     }
 
 }
 
+// Defines function to decrease item in cart
 export const decreaseCartQty = (cartMenu) => {
     let increaseBtns = cartMenu.querySelectorAll(".decrease-qty");
     // console.log('updatedCart =>', increaseBtns);
@@ -272,26 +295,29 @@ export const decreaseCartQty = (cartMenu) => {
                 } )
             }
 
-            localStorage.cart = JSON.stringify(updatedCart);
-            renderCartItems("#cart-menu");
+            localStorage.cart = JSON.stringify(updatedCart); // Updates cart data in local storage
+            renderCartItems("#cart-menu"); // Render cart items after cart data updates
         })
     }
 
 }
 
+// Defines function to remove item in cart
 export const removeFromCart = (productId) => {
     // console.log(productId);
-    productId = parseFloat(productId);
-    let cartItems = cartProducts();
-    let updatedCart = cartItems.filter((item) => item.id !== productId )
+    productId = parseFloat(productId); // String to Number parse
+    let cartItems = cartProducts(); // Current cart items
 
-    localStorage.cart = JSON.stringify([...updatedCart]);
+    let updatedCart = cartItems.filter((item) => item.id !== productId ) // Remove cart items
+
+    localStorage.cart = JSON.stringify([...updatedCart]); // Store updated cart data after remove
 
     Toast.warning({message: "Product has been removed!"});
 
     renderCartItems("#cart-menu");
 }
 
+// Defines function to remove all items in cart
 export const clearCart = () => {
     localStorage.cart = JSON.stringify([]);
     document.querySelector(".remove-all-wrap").style.display = "none";
@@ -299,12 +325,14 @@ export const clearCart = () => {
     renderCartItems("#cart-menu");
 }
 
+// Defines function to calculate discount.
 export const calculateDiscount = (price, percentage, maxVlaue = 99) => {
     let percCalculated = (price * percentage) / 100;
     let discountValue = percCalculated > maxVlaue ? maxVlaue : percCalculated;
     return discountValue
 }
 
+// Defines function to get discount as object from local storage.
 export const getDiscount = () => {
     let discount = {};
     let localStorageDiscount = localStorage.getItem("discount");
@@ -314,19 +342,20 @@ export const getDiscount = () => {
     return discount;
 }
 
+// Defines function to apply discount code and return discount value .
 export const applyDiscount = (coupon) => {
-    // if (coupon.toLowerCase() === "ostad2023" && cartProducts().length > 0) {
     if (coupon.toLowerCase() === "ostad2023") {
         localStorage.discount = JSON.stringify({code: coupon});
         let subTotalPrice = getSubTotalPrice();
         let discountValue = calculateDiscount(subTotalPrice, 10);
         document.querySelector("#discount-form").style.display = "none";
-        // console.log(discountValue);
+        // console.log(subTotalPrice, discountValue);
         return discountValue;
     }
     return false
 }
 
+// Defines function to reset applied discount
 export const resetDiscount = () => {
     localStorage.discount = JSON.stringify({});
     document.querySelector("#discount-code").value = "";
@@ -334,23 +363,32 @@ export const resetDiscount = () => {
     document.querySelector("#discount-form").style.display = "block";
 }
 
+// Defines function to initialize discount process
 export const discountProcess = (selector) => {
     let cartElm = document.querySelector(selector);
     let discountForm = cartElm.querySelector("#discount-form");
     let discountInput = discountForm.querySelector("#discount-code");
 
+    // hides feedback when starts typing coupon code
     discountInput.addEventListener("input", (e) => {
         if(!!e.target.value) {
             discountForm.querySelector("#discount-feedback").style.visibility = "hidden";
         }
     })
 
+    // captures coupon code for submision and proceeds calcaluation on submit
     discountForm.addEventListener("submit", (e) => {
         e.preventDefault();
         let newCode = discountInput.value;
         let newDiscountValue = applyDiscount(newCode);
         let subTotal = getSubTotalPrice();
+
+        // console.log("newDiscountValue in discountProcess =>", newDiscountValue);
+
         if(!!newDiscountValue) {
+
+            // console.log("subTotal in discountProcess =>", subTotal);
+
             let newTotalPrice = subTotal - newDiscountValue;
             discountForm.querySelector("#discount-feedback").style.visibility = "hidden";
             cartElm.querySelector("#discounted-wrap").style.display = "block";
