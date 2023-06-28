@@ -85,8 +85,9 @@ export const renderCartItems = (selector) => {
     let cartCountElm = document.querySelector(".cart-count");
     let cartListElem = cartMenuElm.querySelector("#cart-items");
     let subTotalPriceElem = cartMenuElm.querySelector("#subtotal-price");
-    let subTotal = getSubTotalPrice();
-    let totalPrice = getTotalPrice();
+    // let subTotal = getSubTotalPrice();
+    let totalPrice = getTotalPrice(); // Gets the initial total price
+    // Gets the initial discount string of object. Ex: "{code: 'string'}" || "{}"
     let prevAppliedDiscount = localStorage.getItem("discount");
     let prevDiscountCode ="";
 
@@ -96,7 +97,8 @@ export const renderCartItems = (selector) => {
 
         if(!!prevDiscountCode) {
             let discountValue = applyDiscount(prevDiscountCode);
-            let totalPrice = subTotal - discountValue;
+            // let totalPrice = subTotal - discountValue;
+            totalPrice = getTotalPrice(); // re-asign the total price after discount applied
             cartMenuElm.querySelector("#discount-value").innerHTML = `- $${discountValue}`;
             cartMenuElm.querySelector("#discount-badge").innerHTML = prevDiscountCode;
             cartMenuElm.querySelector("#total-price").innerHTML = `$${totalPrice}`;
@@ -182,8 +184,8 @@ export const renderCartItems = (selector) => {
         cartMenuElm.querySelector(".remove-all-wrap").style.display = "none";
     }
 
-    cartMenuElm.querySelector("#total-price").innerHTML = `$${totalPrice}`;
-    subTotalPriceElem.innerHTML = `$${getSubTotalPrice()}`;
+    subTotalPriceElem.innerHTML = `$${getSubTotalPrice()}`; // Display sub-total price in panel
+    cartMenuElm.querySelector("#total-price").innerHTML = `$${totalPrice}`; // Display total price in panel
 
 }
 
@@ -336,7 +338,6 @@ export const discountProcess = (selector) => {
     let cartElm = document.querySelector(selector);
     let discountForm = cartElm.querySelector("#discount-form");
     let discountInput = discountForm.querySelector("#discount-code");
-    let subTotal = getSubTotalPrice();
 
     discountInput.addEventListener("input", (e) => {
         if(!!e.target.value) {
@@ -348,6 +349,7 @@ export const discountProcess = (selector) => {
         e.preventDefault();
         let newCode = discountInput.value;
         let newDiscountValue = applyDiscount(newCode);
+        let subTotal = getSubTotalPrice();
         if(!!newDiscountValue) {
             let newTotalPrice = subTotal - newDiscountValue;
             discountForm.querySelector("#discount-feedback").style.visibility = "hidden";
