@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MegaShop</title>
+    <meta name="description" content="Explore the MegaShop, the one-stop destination for all your shopping needs. Discover a vast selection of products ranging from electronics and fashion to home decor and more. Enjoy unbeatable prices, exceptional customer service, and a seamless shopping experience. Shop at MegaShop and unlock a world of endless possibilities.">
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="./src/main.css">
+</head>
+<body>
+    <div class="page-container pt-20">
+
+        <header class="fixed top-0 left-0 right-0 text-gray-600 bg-white body-font shadow-lg z-10">
+            <div class="container mx-auto px-4 relative">
+                <div class="container mx-auto columns-2 md:columns-3 flex p-5 w-full items-center justify-between">
+                    <a class="flex title-font font-medium items-center text-gray-900 mb-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-10 h-10 text-white p-1 bg-indigo-500 rounded-full"><g><g data-name="Layer 2"><circle cx="256" cy="256" r="256" fill="rgb(99 102 241)" class=""></circle><path fill="#ffffff" d="M411.64 201.3c-10.11-28.34-23.74-55.64-35.06-83.65-3.62-8.45-8.14-11.45-17.28-11.45h-205c-10.42 0-14.62 2.78-18.72 12.4-7.15 16.74-14.09 33.54-21.63 50.28-8.15 18.12-16.58 36.82-13.17 58.68-.17 11.51 3.22 22.44 10.22 33.62a7.88 7.88 0 0 1 1.24 3.8c.1 41.43.09 83 .08 123.93 0 10.85 6 16.83 16.87 16.84 35.36.25 87.38-.31 123.24 0v.06h130c12.21 0 17.92-5.68 17.92-17.94v-27.6c0-31.15 0-63.37.08-95.06.38-3.3 2.84-7 4.23-10.29 9.75-16.41 6.98-35.72 6.98-53.62zM160 138.88c.62-1.5 1-1.91 2.75-2h4.63q91.2.15 181.8 0c2.18 0 2.63.29 3.44 2.23 6.83 16.5 13.89 32.59 20.77 48.92H139.12c6.97-16.35 13.98-32.59 20.88-49.15zM131.09 219c18.72-1.13 44.69 0 63.33-.48 4.58 53.02-68.09 52.36-63.33.48zm74.44 156.17h-62.18v-89.61c26.25 5.34 41.5 4.16 62.18-14.57zM224.83 219c18.72-1 44.51 0 63.12-.46 4.91 52.36-67.89 53-63.12.46zm144.59 156.22H236.88v-89.4A61.74 61.74 0 0 0 303 267.49a61.85 61.85 0 0 0 66.42 18.25zM318.2 218.85v-.26c19.82 0 41.58 0 63.39-.06 4.41 52.91-67.78 52.56-63.39.32z" data-original="#ffffff" class=""></path></g></g></svg>
+                        <span class="ml-3 text-xl font-bold">MegaShop</span>
+                    </a>
+                    <nav class="hidden md:relative md:flex flex-wrap flex-col md:flex-row md:items-center text-base justify-center bg-white md:bg-transparent">
+                        <a href="/" class="px-4 py-2 font-semibold hover:text-gray-900">Home</a>
+                        <a href="#popular" class="px-4 py-2 font-semibold hover:text-gray-900">Popular Products</a>
+                    </nav>
+                    <div class="flex gap-6 items-center">
+                        <div class="cart-wrap">
+                            <button id="open-cart-drawer" class="inline-flex relative items-center text-white bg-emerald-500 border-0 py-3 px-6 focus:outline-none hover:bg-emerald-400 rounded-full text-lg ml-10 md:mt-0">
+                                <i class="ti ti-shopping-cart"></i>
+                                <span class="sr-only">Notifications</span>
+                                <div class="cart-count hidden absolute items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
+                                    0
+                                </div>
+                            </button>
+                            <div id="cart-menu" class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+                                <!--
+                                    Background backdrop, show/hide based on slide-over state.
+
+                                    Entering: "ease-in-out duration-500"
+                                    From: "opacity-0"
+                                    To: "opacity-100"
+                                    Leaving: "ease-in-out duration-500"
+                                    From: "opacity-100"
+                                    To: "opacity-0"
+                                -->
+                                <div class="backdrop fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity ease-in-out duration-500"></div>
+
+                                <div class="cart-body-wrap fixed inset-0 overflow-hidden">
+                                    <div class="close-cart-outer absolute inset-0 overflow-hidden">
+                                        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                                            <!--
+                                                Slide-over panel, show/hide based on slide-over state.
+
+                                                Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+                                                From: "translate-x-full"
+                                                To: "translate-x-0"
+                                                Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+                                                From: "translate-x-0"
+                                                To: "translate-x-full"
+                                            -->
+                                            <div class="cart-body pointer-events-auto w-screen max-w-md transform transition ease-in-out duration-500 sm:duration-700">
+                                                <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                                                    <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                                                        <div class="flex items-start justify-between">
+                                                            <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                                                            <div class="ml-3 flex h-7 items-center">
+                                                                <button type="button" class="close-cart -m-2 p-2 text-gray-400 hover:text-gray-500">
+                                                                    <span class="sr-only">Close panel</span>
+                                                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-8">
+                                                            <div class="flow-root">
+                                                                <ul id="cart-items" role="list" class="-my-6 divide-y divide-gray-200">
+                                                                    <!-- products... -->
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="border-t border-gray-200 px-4 pb-6 sm:px-6">
+                                                        <div class="remove-all-wrap hidden border-b border-gray-200 text-right px-2 py-3 mb-3">
+                                                            <button id="remove-all" class="font-medium text-indigo-600 hover:text-indigo-500">Clear Cart</button>
+                                                        </div>
+                                                        <form id="discount-form" class="my-4">
+                                                            <label for="discount-code" class="leading-7 text-sm text-gray-600">Discount code</label>
+                                                            <div class="flex gap-3">
+                                                                <input type="text" id="discount-code" name="discount-code" class="uppercase w-full font-bold bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                                <button type="submit" class="text-gray-500 bg-slate-100 border py-2 px-6 focus:outline-none hover:bg-slate-200 rounded">Apply</button>
+                                                            </div>
+                                                            <span id="discount-feedback" class="invisible text-xs text-red-500">Invalid discount code</span>
+                                                        </form>
+                                                        <div class="flex justify-between text-base font-medium text-gray-900">
+                                                            <p>Subtotal</p>
+                                                            <p id="subtotal-price">$00.00</p>
+                                                        </div>
+                                                        <div id="discounted-wrap">
+                                                            <div class="flex justify-between text-base font-medium text-gray-900 my-2">
+                                                                <p>Discount <span id="discount-badge" class="bg-gray-100 text-gray-800 text-xs font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 uppercase"></span> <i id="reset-discount" class="cursor-pointer ti ti-close text-xs"></i></p>
+                                                                <p id="discount-value">- $00.00</p>
+                                                            </div>
+                                                            <div class="flex justify-between text-base font-medium text-gray-900">
+                                                                <p>Total</p>
+                                                                <p id="total-price">$00.00</p>
+                                                            </div>
+                                                        </div>
+                                                        <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                                                        <div class="mt-6">
+                                                            <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                                                        </div>
+                                                        <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                                            <p>
+                                                                or
+                                                                <button type="button" class="close-cart font-medium text-indigo-600 hover:text-indigo-500">
+                                                                    Continue Shopping
+                                                                    <span aria-hidden="true"> &rarr;</span>
+                                                                </button>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative md:hidden">
+                            <button id="toggle-mobile-menu" class="inline-flex items-center text-slate-400 bg-slate-100 shadow-sm border py-2 px-3 focus:outline-none hover:bg-slate-200 rounded-lg text-lg md:mt-0">
+                                <span class="ti ti-menu"></span>
+                                <span class="sr-only">Menu</span>
+                            </button>
+                            <nav id="mobile-menu" class="md:ml-auto absolute z-10 divide-y divide-gray-100 flex rounded-lg shadow-xl border md:relative flex-wrap flex-col md:flex-row md:items-center text-base justify-center bg-white md:bg-transparent right-0 mt-4 ease-in-out duration-300">
+                                <a href="/" class="md:mr-5 px-4 py-2 whitespace-nowrap font-semibold hover:text-gray-900">Home</a>
+                                <a href="#popular" class="md:mr-5 px-4 py-2 whitespace-nowrap font-semibold hover:text-gray-900">Popular Products</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="main bg-slate-100">
+            <div class="mx-auto">
+                <img src="./src/assets/img/banner-1.png" alt="Coupon OSTAD2023" class="max-w-100 w-full object-cover object-center">
+            </div>
+            <div id="popular" class="container mx-auto px-4">
+                <div class="">
+                    <div class="mx-auto max-w-2xl px-4 pt-16 sm:px-6 sm:pt-24 sm:pb-16 lg:max-w-7xl lg:px-8">
+                        <h2 class="text-2xl font-bold tracking-tight text-gray-900">Popular Products</h2>
+
+                        <div class="product-list mt-6 grid grid-cols-1 gap-x-6 gap-y-24 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                            <!-- <div class="product-item group relative">
+                                <div class="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
+                                    <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                                    <button class="absolute top-0 right-0 bottom-0 left-0 m-auto w-40 h-10  shadow z-1 bg-white opacity-0 rounded px-4 py-2 group-hover:opacity-80 backdrop-blur-3xl transition-opacity duration-300"><i class="ti ti-eye"></i> View Details </button>
+                                </div>
+                                <div class="mt-4 flex justify-between">
+                                    <div>
+                                        <h3 class="text-sm text-gray-700">
+                                            <a href="#">
+                                                Basic Tee
+                                            </a>
+                                        </h3>
+                                        <p class="mt-1 text-sm text-gray-500">Black</p>
+                                    </div>
+                                    <p class="text-sm font-medium text-gray-900">$35</p>
+                                </div>
+                                <button class="block w-full px-3 py-2 bg-slate-200 rounded mt-4">Add To Cart</button>
+                            </div> -->
+
+                            <!-- More products... -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-gray-600 body-font border-t">
+            <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+                <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="w-10 h-10 text-white p-1 bg-indigo-500 rounded-full"><g><g data-name="Layer 2"><circle cx="256" cy="256" r="256" fill="rgb(99 102 241)" class=""></circle><path fill="#ffffff" d="M411.64 201.3c-10.11-28.34-23.74-55.64-35.06-83.65-3.62-8.45-8.14-11.45-17.28-11.45h-205c-10.42 0-14.62 2.78-18.72 12.4-7.15 16.74-14.09 33.54-21.63 50.28-8.15 18.12-16.58 36.82-13.17 58.68-.17 11.51 3.22 22.44 10.22 33.62a7.88 7.88 0 0 1 1.24 3.8c.1 41.43.09 83 .08 123.93 0 10.85 6 16.83 16.87 16.84 35.36.25 87.38-.31 123.24 0v.06h130c12.21 0 17.92-5.68 17.92-17.94v-27.6c0-31.15 0-63.37.08-95.06.38-3.3 2.84-7 4.23-10.29 9.75-16.41 6.98-35.72 6.98-53.62zM160 138.88c.62-1.5 1-1.91 2.75-2h4.63q91.2.15 181.8 0c2.18 0 2.63.29 3.44 2.23 6.83 16.5 13.89 32.59 20.77 48.92H139.12c6.97-16.35 13.98-32.59 20.88-49.15zM131.09 219c18.72-1.13 44.69 0 63.33-.48 4.58 53.02-68.09 52.36-63.33.48zm74.44 156.17h-62.18v-89.61c26.25 5.34 41.5 4.16 62.18-14.57zM224.83 219c18.72-1 44.51 0 63.12-.46 4.91 52.36-67.89 53-63.12.46zm144.59 156.22H236.88v-89.4A61.74 61.74 0 0 0 303 267.49a61.85 61.85 0 0 0 66.42 18.25zM318.2 218.85v-.26c19.82 0 41.58 0 63.39-.06 4.41 52.91-67.78 52.56-63.39.32z" data-original="#ffffff" class=""></path></g></g></svg>
+                    <span class="ml-3 text-xl">MegaShop</span>
+                </a>
+                <p class="text-md text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2023 <span class="text-blue-600">Kowshik Kuri</span></p>
+                <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
+                    <a href="https://www.facebook.com/ratul.kuri" class="text-gray-500 hover:text-blue-600" target="_blank" rel="nofollow noreferrer">
+                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                        </svg>
+                    </a>
+                    <!-- <a class="ml-3 text-gray-500" target="_blank" rel="nofollow noreferrer" >
+                        <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                    </a> -->
+                    <a href="https://www.instagram.com/kowshik.kuri" class="ml-3 text-gray-500 hover:text-rose-600" target="_blank" rel="nofollow noreferrer" >
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+                        </svg>
+                    </a>
+                    <!-- <a class="ml-3 text-gray-500" target="_blank" rel="nofollow noreferrer" >
+                        <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+                            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+                        </svg>
+                    </a> -->
+                </span>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <div id="product-modal" class="modal relative z-10" aria-labelledby="Product Modal" role="dialog" aria-modal="true">
+        <div class="backdrop fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="modal-body relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl">
+                    <div class="modal-header">
+                        <div class="relative">
+                            <button class="close-modal absolute top-2 right-3 text-sm bg-slate-200 w-6 h-6 rounded-full font-bold" data-modal-target="#product-modal">&#x2715;</button>
+                        </div>
+                    </div>
+                    <div class="modal-content bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <!-- Modal Content -->
+                        <section class="text-gray-600 body-font overflow-hidden">
+                            <div class="px-5 py-6 mx-auto">
+                                <div class="mx-auto flex flex-wrap">
+                                    <div class="lg:w-1/2 w-full lg:h-auto h-64">
+                                        <div id="product-thumb-slider" class="slider relative min-h-max h-full">
+                                            <div class="slides h-full">
+                                                <!-- Product Slides -->
+                                                <!-- <img alt="ecommerce" class="w-full object-cover object-center rounded" src="https://dummyimage.com/400x400"> -->
+                                            </div>
+                                            <ul class="bullets absolute bottom-3 left-0 right-0 flex gap-2 justify-center">
+                                                <li class="active bullet cursor-pointer w-4 h-4 rounded-full border"></li>
+                                                <li class="bullet cursor-pointer w-4 h-4 rounded-full border"></li>
+                                                <li class="bullet cursor-pointer w-4 h-4 rounded-full border"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                                        <h2 id="qv-product-brand" class="text-sm title-font text-gray-500 tracking-widest"><!-- Product Brand --></h2>
+                                        <h1 id="qv-product-title" class="text-gray-900 text-3xl title-font font-medium mb-1"><!-- Product Title --></h1>
+                                        <div class="flex mb-4">
+                                            <span class="flex items-center">
+                                                <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                                </svg>
+                                                <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                                </svg>
+                                                <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                                </svg>
+                                                <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                                </svg>
+                                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                                </svg>
+                                                <span class="text-gray-600 ml-3">4 Reviews</span>
+                                            </span>
+                                        </div>
+                                        <div id="qv-product-description" class="leading-relaxed">
+                                            <!-- Product Description -->
+                                        </div>
+                                        <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+                                            <div class="flex items-center">
+                                                <span class="mr-3">Quantity:</span>
+                                                <div class="qv-quantity inline-flex justify-center gap-2">
+                                                    <button id="qv-decrease-qty" data-product-id="" class="bg-slate-100 border hover:bg-slate-200 px-2 py-1 rounded"><i class="ti ti-minus"></i></button>
+                                                    <input id="qv-qty-input" class="bg-white border rounded px-2 py-1 w-10 text-center" type="text" value="1" disabled />
+                                                    <button id="qv-increase-qty" data-product-id="" class="bg-slate-100 border hover:bg-slate-200 px-2 py-1 rounded"><i class="ti ti-plus"></i></button>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="flex ml-6 items-center">
+                                                <span class="mr-3">Size</span>
+                                                <div class="relative">
+                                                    <select class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
+                                                        <option>SM</option>
+                                                        <option>M</option>
+                                                        <option>L</option>
+                                                        <option>XL</option>
+                                                    </select>
+                                                    <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                                                            <path d="M6 9l6 6 6-6"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="flex">
+                                            <span id="qv-product-price" class="title-font font-medium text-2xl text-gray-900">$58.00</span>
+                                            <button id="qv-add-to-cart" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded items-center gap-3"><i class="ti ti-shopping-cart"></i> Add to cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button>
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TODO: Change ".getAttribute" to ".dataset" all js file; -->
+    <script type="module" src="./src/app.js"></script>
+
+
+</body>
+</html>

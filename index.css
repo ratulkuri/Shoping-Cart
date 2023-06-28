@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    #mobile-menu:not(.active) {
+        @apply hidden h-0;
+    }
+    #mobile-menu.active {
+        @apply flex h-auto;
+    }
+
+    #cart-menu:not(.open) .backdrop {
+        @apply invisible opacity-0 ease-in-out duration-500;
+    }
+
+    #cart-menu:not(.open) .cart-body-wrap {
+        @apply invisible ease-in-out duration-500;
+    }
+
+    #cart-menu:not(.open) .cart-body {
+        @apply translate-x-full ease-in-out duration-500;
+    }
+
+    .modal:not(.show) {
+        @apply invisible
+    }
+    .modal.show {
+        @apply visible
+    }
+
+    .modal:not(.show) .backdrop {
+        @apply ease-out duration-300 opacity-0
+    }
+
+    .modal.show .backdrop {
+        @apply ease-in duration-200 opacity-100
+    }
+
+    .modal:not(.show) .modal-body {
+        @apply ease-out duration-300 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95
+    }
+    .modal.show .modal-body {
+        @apply ease-in duration-200 opacity-100 translate-y-0 sm:scale-100
+    }
+    .bullets li:not(.active) {
+        @apply bg-white bg-opacity-50
+    }
+    .bullets .active {
+        @apply bg-indigo-400 border-indigo-600
+    }
+    .toast-wrapper {
+        @apply fixed top-0 left-1/2 -translate-x-1/2 flex flex-col gap-4 max-h-screen overflow-y-auto z-20 px-10 py-4 no-scrollbar
+        /* @apply fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 flex items-center flex-col gap-4 max-h-screen overflow-y-auto z-20 px-10 py-4 no-scrollbar */
+    }
+    .toast-wrapper .toast {
+        @apply relative flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800
+    }
+    .toast-wrapper .toast.success {
+        /* @apply border border-green-700 shadow-2xl shadow-green-400 */
+        @apply border-2 border-green-700 shadow-[5px_5px_0px_0px_rgba(21,128,61)]
+    }
+    .toast-wrapper .toast.success .message {
+        @apply text-green-700
+    }
+    .toast-wrapper .toast.error {
+        /* @apply border border-red-700 shadow-2xl shadow-red-400 */
+        @apply border-2 border-red-500 shadow-[5px_5px_0px_0px_rgba(239,68,68)]
+    }
+    .toast-wrapper .toast.error .message {
+        @apply text-red-500
+    }
+    .toast-wrapper .toast.warning {
+        /* @apply border border-yellow-700 shadow-2xl shadow-yellow-400 */
+        @apply border-2 border-orange-500 shadow-[5px_5px_0px_0px_rgba(249,115,22)]
+    }
+    .toast-wrapper .toast.warning .message {
+        @apply text-orange-500
+    }
+
+}
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+}
+
