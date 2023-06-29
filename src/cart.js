@@ -82,7 +82,7 @@ export const getTotalPrice = () => {
     let totalPrice = subTotal; // sets subtotal price without discount as initial total price
 
     // if there is any discount code applied then subtracts discount from subtotal then set the value as total price
-    if(!!prevDiscountObject && Object.keys(prevDiscountObject).length > 0 && prevDiscountObject.hasOwnProperty(code)) {
+    if(!!prevDiscountObject && Object.keys(prevDiscountObject).length > 0 && prevDiscountObject.hasOwnProperty("code")) {
         let prevDiscountCode = prevDiscountObject.code;
         let discountValue = applyDiscount(prevDiscountCode);
         totalPrice = subTotal - discountValue;
