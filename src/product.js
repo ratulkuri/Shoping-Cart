@@ -298,7 +298,7 @@ const Products = [{
     "brand": "Flying Wooden",
     "category": "home-decoration",
     "thumbnail": "/src/assets/img/products/27/thumbnail.jpg",
-    "images": ["/src/assets/img/products/27/1.jpg", "/src/assets/img/products/27/2.jpg", "/src/assets/img/products/27/3.jpg", "/src/assets/img/products/27/4.jpg", "/src/assets/img/products/27/thumbnail.webp"]
+    "images": ["/src/assets/img/products/27/1.jpg", "/src/assets/img/products/27/2.jpg", "/src/assets/img/products/27/3.jpg", "/src/assets/img/products/27/4.jpg", "/src/assets/img/products/27/thumbnail.jpg"]
 }, {
     "id": 28,
     "title": "3D Embellishment Art Lamp",
@@ -320,7 +320,7 @@ const Products = [{
     "brand": "luxury palace",
     "category": "home-decoration",
     "thumbnail": "/src/assets/img/products/29/thumbnail.jpg",
-    "images": ["/src/assets/img/products/29/1.jpg", "/src/assets/img/products/29/2.jpg", "/src/assets/img/products/29/3.webp", "/src/assets/img/products/29/4.webp", "/src/assets/img/products/29/thumbnail.webp"]
+    "images": ["/src/assets/img/products/29/1.jpg", "/src/assets/img/products/29/2.jpg", "/src/assets/img/products/29/3.webp", "/src/assets/img/products/29/4.webp", "/src/assets/img/products/29/thumbnail.jpg"]
 }, {
     "id": 30,
     "title": "Key Holder",
