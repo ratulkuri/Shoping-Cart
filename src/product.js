@@ -335,7 +335,7 @@ const Products = [{
 }];
 
 
-export const rederProductList = (selector) => {
+export const rederProductList = (selector = ".product-list") => {
     let productListElm = document.querySelector(selector);
 
     for(let product of Products) {
@@ -376,7 +376,7 @@ export const rederProductList = (selector) => {
         btn.addEventListener("click", () => {
             let id = parseFloat(btn.getAttribute("data-product-id"));
             if (!!id) {
-                addToCart({id, qty: 1});
+                addToCart({id, qty: 1, cartSelector: "#cart-menu"});
             }
         })
     }
@@ -470,7 +470,7 @@ export const productModalInit = () => {
         let id = parseFloat(qvAddToCartBtn.getAttribute("data-product-id"));
         let qty = parseFloat(document.getElementById("qv-qty-input").value);
         if (!!id) {
-            addToCart({id, qty});
+            addToCart({id, qty, cartSelector: "#cart-menu"});
         }
     });
 

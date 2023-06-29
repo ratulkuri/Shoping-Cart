@@ -84,7 +84,7 @@ export const getTotalPrice = () => {
     // if there is any discount code applied then subtracts discount from subtotal then set the value as total price
     if(!!prevDiscountObject && Object.keys(prevDiscountObject).length > 0 && prevDiscountObject.hasOwnProperty("code")) {
         let prevDiscountCode = prevDiscountObject.code;
-        let discountValue = applyDiscount(prevDiscountCode);
+        let discountValue = applyDiscount({coupon: prevDiscountCode});
         totalPrice = subTotal - discountValue;
     }
 
@@ -92,7 +92,7 @@ export const getTotalPrice = () => {
 }
 
 // Display total price in panel
-export const renderCartItems = (selector) => {
+export const renderCartItems = (selector = "#cart-menu") => {
     let cartItems = cartProducts();
     let cartMenuElm = document.querySelector(selector);
     let cartCountElm = document.querySelector(".cart-count");
@@ -111,7 +111,7 @@ export const renderCartItems = (selector) => {
 
         // Apply code to get discount value if the code exist
         if(!!prevDiscountCode) {
-            let discountValue = applyDiscount(prevDiscountCode);
+            let discountValue = applyDiscount({coupon: prevDiscountCode});
             // let totalPrice = subTotal - discountValue;
             totalPrice = getTotalPrice(); // re-asign the total price after discount applied
             cartMenuElm.querySelector("#discount-value").innerHTML = `- $${discountValue}`;
@@ -186,8 +186,8 @@ export const renderCartItems = (selector) => {
 
         let qvTogglers = cartMenuElm.querySelectorAll(".quick-view")
         addModalTriggerListener(qvTogglers);
-        increaseCartQty(cartMenuElm); // Initalize cart item quantity increase function
-        decreaseCartQty(cartMenuElm); // Initalize cart item quantity decrease function
+        increaseCartQty({cart: selector}); // Initalize cart item quantity increase function
+        decreaseCartQty({cart: selector}); // Initalize cart item quantity decrease function
 
     } else {
 
@@ -210,7 +210,7 @@ export const renderCartItems = (selector) => {
 
 // Define function to add product in cart
 export const addToCart = ({...props}) => {
-    const {id, qty} = props; // Destructures id & qty variable
+    const {id, qty = 1, cartSelector = "#cart-menu"} = props; // Destructures id & qty variable
     let itemToBeAdded = getProductById(id); // Gets item to be added from id
     let cartItems = cartProducts(); // Gets current cart item's id and quantity
 
@@ -237,7 +237,7 @@ export const addToCart = ({...props}) => {
     }
 
     // Render cart items after cart data updates
-    renderCartItems("#cart-menu");
+    renderCartItems(cartSelector);
 
     // console.log("product", itemToBeAdded);
     // console.log("cartItems", cartProducts());
@@ -245,8 +245,9 @@ export const addToCart = ({...props}) => {
 }
 
 // Defines function to increase item in cart
-export const increaseCartQty = (cartMenu) => {
-    let increaseBtns = cartMenu.querySelectorAll(".increase-qty");
+export const increaseCartQty = ({cart = "#cart-menu", trigger = ".increase-qty"}) => {
+    let cartMenu = document.querySelector(cart);
+    let increaseBtns = cartMenu.querySelectorAll(trigger);
     // console.log('updatedCart =>', increaseBtns);
 
     for (let btn of increaseBtns) {
@@ -268,15 +269,16 @@ export const increaseCartQty = (cartMenu) => {
             }
 
             localStorage.cart = JSON.stringify(updatedCart); // Updates cart data in local storage
-            renderCartItems("#cart-menu"); // Render cart items after cart data updates
+            renderCartItems(cart); // Render cart items after cart data updates
         })
     }
 
 }
 
 // Defines function to decrease item in cart
-export const decreaseCartQty = (cartMenu) => {
-    let increaseBtns = cartMenu.querySelectorAll(".decrease-qty");
+export const decreaseCartQty = ({cart = "#cart-menu", trigger = ".decrease-qty"}) => {
+    let cartMenu = document.querySelector(cart);
+    let increaseBtns = cartMenu.querySelectorAll(trigger);
     // console.log('updatedCart =>', increaseBtns);
 
     for (let btn of increaseBtns) {
@@ -298,14 +300,14 @@ export const decreaseCartQty = (cartMenu) => {
             }
 
             localStorage.cart = JSON.stringify(updatedCart); // Updates cart data in local storage
-            renderCartItems("#cart-menu"); // Render cart items after cart data updates
+            renderCartItems(cart); // Render cart items after cart data updates
         })
     }
 
 }
 
 // Defines function to remove item in cart
-export const removeFromCart = (productId) => {
+export const removeFromCart = (productId, cartSelector = "#cart-menu") => {
     // console.log(productId);
     productId = parseFloat(productId); // String to Number parse
     let cartItems = cartProducts(); // Current cart items
@@ -316,21 +318,27 @@ export const removeFromCart = (productId) => {
 
     Toast.warning({message: "Product has been removed!", swipe: true, duration: 3000 });
 
-    renderCartItems("#cart-menu");
+    renderCartItems(cartSelector);
 }
 
 // Defines function to remove all items in cart
-export const clearCart = () => {
+export const clearCart = (selector = "#cart-menu") => {
     localStorage.cart = JSON.stringify([]);
-    document.querySelector(".remove-all-wrap").style.display = "none";
+    let removeAllWrap = document.querySelector(".remove-all-wrap")
+    if(!!removeAllWrap) {
+        removeAllWrap.style.display = "none";
+    }
     Toast.error({message: "Cart cleared successfully!", swipe: true, duration: 3000 });
-    renderCartItems("#cart-menu");
+    renderCartItems(selector);
 }
 
 // Defines function to calculate discount.
-export const calculateDiscount = (price, percentage, maxVlaue = 99) => {
+export const calculateDiscount = (price, percentage, max) => {
+    if (percentage > 100) {
+        percentage = 100;
+    }
     let percCalculated = (price * percentage) / 100;
-    let discountValue = percCalculated > maxVlaue ? maxVlaue : percCalculated;
+    let discountValue = percCalculated > max ? max : percCalculated;
     return discountValue
 }
 
@@ -345,12 +353,15 @@ export const getDiscount = () => {
 }
 
 // Defines function to apply discount code and return discount value .
-export const applyDiscount = (coupon) => {
+export const applyDiscount = ({coupon, percentage = 10, max = 99}) => {
     if (coupon.toLowerCase() === "ostad2023") {
         localStorage.discount = JSON.stringify({code: coupon});
         let subTotalPrice = getSubTotalPrice();
-        let discountValue = calculateDiscount(subTotalPrice, 10);
-        document.querySelector("#discount-form").style.display = "none";
+        let discountValue = calculateDiscount(subTotalPrice, percentage, max);
+        let discountForm = document.querySelector("#discount-form");
+        if(!!discountForm) {
+            discountForm.style.display = "none";
+        }
         // console.log(subTotalPrice, discountValue);
         return discountValue;
     }
@@ -382,7 +393,7 @@ export const discountProcess = (selector) => {
     discountForm.addEventListener("submit", (e) => {
         e.preventDefault();
         let newCode = discountInput.value;
-        let newDiscountValue = applyDiscount(newCode);
+        let newDiscountValue = applyDiscount({coupon: newCode});
         let subTotal = getSubTotalPrice();
 
         // console.log("newDiscountValue in discountProcess =>", newDiscountValue);
