@@ -21,9 +21,9 @@ To run the Ecommerce website locally, follow these steps:
 ## Features
 
 - **[Product Listing](#product):** Displays a list of products with their names, prices, and "Add to Cart" buttons.
-- **[Adding Products to Cart](#add-to-cart):** Allows users to add selected products to the shopping cart with desired quantities.
-- **[Displaying Cart Items](#render-cart-items):** Shows the added items in the shopping cart, including product name, quantity, individual price, and total amount.
-- **[Clearing the Cart](#clear-cart):** Provides a "Remove" button to remove individual cart item and "Clear Cart" button to remove all items from the cart.
+- **[Adding Products to Cart](#add-to-cart-):** Allows users to add selected products to the shopping cart with desired quantities.
+- **[Displaying Cart Items](#render-cart-items-):** Shows the added items in the shopping cart, including product name, quantity, individual price, and total amount.
+- **[Clearing the Cart](#clear-cart-):** Provides a "Remove" button to remove individual cart item and "Clear Cart" button to remove all items from the cart.
 - **[Additional Features](#additional-features):** Offers options to increase or decrease the quantity of items in the cart.
 - **[Apply Discount](#apply-discount):** Use coupon `OSTAD2023` to get **10%** discount on purchase up to **USD 99**.
 
