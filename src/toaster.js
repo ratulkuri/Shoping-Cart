@@ -87,7 +87,7 @@ export const Swipe = ({parent, main, left, right, actionLeft, actionRight, dista
 
 }
 
-const success = ({message, autoHide = true, duration = 5000, swipe = false}) => {
+const success = ({message, autoHide = true, duration = 5000, swipe = false, distance = 120}) => {
     if (!message) {
         return false
     }
@@ -124,7 +124,7 @@ const success = ({message, autoHide = true, duration = 5000, swipe = false}) => 
             parent: toastWrapper,
             main: successToast,
             actionRight: () => closeToast(toastWrapper, successToast),
-            distance: 120,
+            distance: distance,
             autoHide: autoHide,
             duration: duration,
         })
@@ -143,7 +143,7 @@ const success = ({message, autoHide = true, duration = 5000, swipe = false}) => 
 
 }
 
-const error = ({message, autoHide = true, duration = 5000, swipe = false}) => {
+const error = ({message, autoHide = true, duration = 5000, swipe = false, distance = 120}) => {
     let toastWrapper = document.querySelector(".toast-wrapper");
     if(!toastWrapper) {
         toastWrapper = document.createElement("div");
@@ -177,7 +177,7 @@ const error = ({message, autoHide = true, duration = 5000, swipe = false}) => {
             parent: toastWrapper,
             main: errorToast,
             actionRight: () => closeToast(toastWrapper, errorToast),
-            distance: 120,
+            distance: distance,
             autoHide: autoHide,
             duration: duration,
         })
@@ -194,7 +194,7 @@ const error = ({message, autoHide = true, duration = 5000, swipe = false}) => {
     })
 }
 
-const warning = ({message, autoHide = true, duration = 5000, swipe = false}) => {
+const warning = ({message, autoHide = true, duration = 5000, swipe = false, distance = 120}) => {
     let toastWrapper = document.querySelector(".toast-wrapper");
     if(!toastWrapper) {
         toastWrapper = document.createElement("div");
@@ -228,7 +228,7 @@ const warning = ({message, autoHide = true, duration = 5000, swipe = false}) => 
             parent: toastWrapper,
             main: warningToast,
             actionRight: () => closeToast(toastWrapper, warningToast),
-            distance: 120,
+            distance: distance,
             autoHide: autoHide,
             duration: duration,
         })
