@@ -4,6 +4,9 @@
 
 
 @layer components {
+    .loader {
+        @apply w-full h-screen fixed z-50 bg-white bg-[url('/src/assets/img/loader.gif')] bg-no-repeat bg-center bg-[length:150px_auto] transition-all ease-in-out duration-1000
+    }
     #mobile-menu:not(.active) {
         @apply hidden h-0;
     }

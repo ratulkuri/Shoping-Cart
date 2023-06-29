@@ -21,11 +21,19 @@ const toggleMenu = () => {
     })
 }
 
+const pageLoader = () => {
+    let loaderElm = document.querySelector(".loader");
+    window.addEventListener("load", () => {
+        loaderElm.classList.add("invisible", "opacity-0");
+    })
+}
+
 const init = () => {
     toggleMenu();
     rederProductList(".product-list");
     InitCart("#cart-menu");
     productModalInit();
+    pageLoader();
 }
 
 init();
