@@ -404,8 +404,6 @@ export const productThmbnailSlider = ({product, duration = 2000}) => {
                     <li class="${index === 0 ? "active" : ""} bullet block cursor-pointer w-14 h-14 rounded-lg overflow-hidden border-4" data-thumb-src="${item}">
                         <img class="block w-full h-full object-cover object-center" src="${item}" alt="Thumb ${index + 1}" />
                     </li>`
-                // let slides = slider.querySelectorAll(".slide-item");
-                // let bullets = slider.querySelectorAll(".bullet");
             }
         })
         bulletWrapper.querySelectorAll(".bullet").forEach((item) => {
@@ -416,17 +414,6 @@ export const productThmbnailSlider = ({product, duration = 2000}) => {
                 console.log(e.currentTarget);
             })
         });
-        // let counter = 0;
-        // let sliderInterval = setInterval(() => {
-        //     if (counter + 1 > product?.images?.length) {
-        //         counter = 0;
-        //     }
-        //     slidesWrapper.querySelector(".active")?.classList?.remove("active");
-        //     bulletWrapper.querySelector(".active")?.classList?.remove("active");
-        //     slides[counter].classList.add("active")
-        //     bullets[counter].classList.add("active")
-        //     counter++;
-        // }, duration);
     } else {
         let slidesWrapper = slider.querySelector(".slides");
         slidesWrapper.innerHTML = `<img alt="Placeholder" class="slide-item w-full object-cover object-center rounded" src="">`;
@@ -448,14 +435,6 @@ export const addModalTriggerListener = (togglers) => {
                 document.getElementById("qv-add-to-cart").setAttribute("data-product-id", product.id);
                 productThmbnailSlider({product});
                 toggleModal({triggerElm: toggler});
-            })
-            document.querySelector("#product-modal").addEventListener("modal.hide", (e) => {
-                // document.getElementById("qv-product-brand").innerHTML = product.brand;
-                // document.getElementById("qv-product-title").innerHTML = product.title;
-                // document.getElementById("qv-product-description").innerHTML = product.description;
-                // document.getElementById("qv-product-price").innerHTML = `$${product.price}`;
-                // document.getElementById("qv-add-to-cart").setAttribute("data-product-id", product.id);
-                console.log("modal hidden")
             })
         }
 

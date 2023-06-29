@@ -80,26 +80,6 @@ export const Swipe = ({parent, main, left, right, actionLeft, actionRight, dista
             }
 
         })
-        // swipeContainer.addEventListener("touchend", () => {
-        //     console.log("swipe touchend triggered");
-        //     const swipeDistance = swipeContainer.scrollLeft - swipeContainer.clientWidth;
-        //     console.log(swipeDistance, swipeContainer.scrollLeft, swipeContainer.clientWidth);
-        //     if (swipeDistance < minDistance * -1) {
-        //         console.log('swiped left')
-        //         if(actionLeft !== undefined && typeof actionLeft === "function") {
-        //             actionLeft();
-        //             swipeContainer.remove()
-        //         }
-        //     } else if (swipeDistance > minDistance) {
-        //         console.log('swiped right')
-        //         if(actionRight !== undefined && typeof actionRight === "function") {
-        //             actionRight();
-        //             swipeContainer.remove()
-        //         }
-        //     } else {
-        //         console.log(`did not swipe ${minDistance}px`)
-        //     }
-        // })
 
     } else {
         return false

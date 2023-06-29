@@ -34,31 +34,12 @@
                                 </div>
                             </button>
                             <div id="cart-menu" class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-                                <!--
-                                    Background backdrop, show/hide based on slide-over state.
 
-                                    Entering: "ease-in-out duration-500"
-                                    From: "opacity-0"
-                                    To: "opacity-100"
-                                    Leaving: "ease-in-out duration-500"
-                                    From: "opacity-100"
-                                    To: "opacity-0"
-                                -->
                                 <div class="backdrop fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity ease-in-out duration-500"></div>
 
                                 <div class="cart-body-wrap fixed inset-0 overflow-hidden">
                                     <div class="close-cart-outer absolute inset-0 overflow-hidden">
                                         <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-0 md:pl-10">
-                                            <!--
-                                                Slide-over panel, show/hide based on slide-over state.
-
-                                                Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-                                                From: "translate-x-full"
-                                                To: "translate-x-0"
-                                                Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-                                                From: "translate-x-0"
-                                                To: "translate-x-full"
-                                            -->
                                             <div class="cart-body pointer-events-auto w-screen max-w-md transform transition ease-in-out duration-500 sm:duration-700">
                                                 <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                                     <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
@@ -155,25 +136,6 @@
                         <h2 class="text-2xl font-bold tracking-tight text-gray-900">Popular Products</h2>
 
                         <div class="product-list mt-6 grid grid-cols-1 gap-x-6 gap-y-24 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                            <!-- <div class="product-item group relative">
-                                <div class="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
-                                    <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-                                    <button class="absolute top-0 right-0 bottom-0 left-0 m-auto w-40 h-10  shadow z-1 bg-white opacity-0 rounded px-4 py-2 group-hover:opacity-80 backdrop-blur-3xl transition-opacity duration-300"><i class="ti ti-eye"></i> View Details </button>
-                                </div>
-                                <div class="mt-4 flex justify-between">
-                                    <div>
-                                        <h3 class="text-sm text-gray-700">
-                                            <a href="#">
-                                                Basic Tee
-                                            </a>
-                                        </h3>
-                                        <p class="mt-1 text-sm text-gray-500">Black</p>
-                                    </div>
-                                    <p class="text-sm font-medium text-gray-900">$35</p>
-                                </div>
-                                <button class="block w-full px-3 py-2 bg-slate-200 rounded mt-4">Add To Cart</button>
-                            </div> -->
-
                             <!-- More products... -->
                         </div>
                     </div>
@@ -282,22 +244,6 @@
                                                     <button id="qv-increase-qty" data-product-id="" class="bg-slate-100 border hover:bg-slate-200 px-2 py-1 rounded"><i class="ti ti-plus"></i></button>
                                                 </div>
                                             </div>
-                                            <!-- <div class="flex ml-6 items-center">
-                                                <span class="mr-3">Size</span>
-                                                <div class="relative">
-                                                    <select class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                                                        <option>SM</option>
-                                                        <option>M</option>
-                                                        <option>L</option>
-                                                        <option>XL</option>
-                                                    </select>
-                                                    <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
-                                                            <path d="M6 9l6 6 6-6"></path>
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </div> -->
                                         </div>
                                         <div class="flex">
                                             <span id="qv-product-price" class="title-font font-medium text-2xl text-gray-900">$58.00</span>
@@ -308,16 +254,11 @@
                             </div>
                         </section>
                     </div>
-                    <!-- <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button>
-                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- TODO: Change ".getAttribute" to ".dataset" all js file; -->
     <script type="module" src="./src/app.js"></script>
 
 
