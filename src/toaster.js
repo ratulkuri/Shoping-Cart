@@ -5,7 +5,109 @@ const closeToast = (wrapperElm, toastElm) => {
     }
 }
 
-const success = ({message, autoHide = true, duration = 5000}) => {
+export const Swipe = ({parent, main, left, right, actionLeft, actionRight, distance = 80, autoHide, duration}) => {
+    if(main !== undefined && parent !== undefined) {
+        const minDistance = distance;
+        let swipeContainer = document.createElement("div");
+        swipeContainer.classList.add("swiper-container");
+
+        let leftElementTemplate = `<div class="action left-element"></div>`;
+        let swipeElementTemplate = `<div class="swipe-element"></div>`;
+        let rightElementTemplate = `<div class="action right-element"></div>`;
+
+        if(actionLeft !== undefined) {
+            swipeContainer.innerHTML = leftElementTemplate;
+            if(left !== undefined) {
+                let leftElement = swipeContainer.querySelector(".action.left-element");
+                leftElement.innerHTML = left;
+            }
+        }
+
+        swipeContainer.innerHTML += swipeElementTemplate;
+        let swipeElement = swipeContainer.querySelector(".swipe-element");
+        swipeElement.appendChild(main);
+
+        if(actionRight !== undefined) {
+            swipeContainer.innerHTML += rightElementTemplate;
+            if(right !== undefined) {
+                let rightElement = swipeContainer.querySelector(".action.right-element");
+                rightElement.innerHTML = right;
+            }
+        }
+
+        parent.appendChild(swipeContainer);
+
+        if(autoHide) {
+            main.classList.add("auto-hide");
+            setTimeout(() => closeToast(parent, swipeContainer), duration);
+        }
+
+        swipeContainer.querySelector(".close-toaster").addEventListener("click", (e) => {
+            closeToast(parent, swipeContainer);
+        })
+
+        swipeContainer.addEventListener("touchend", (e) => {
+            // console.log(e);
+
+            const swipeDistance = swipeContainer.scrollLeft - swipeContainer.clientWidth;
+            // console.log(swipeDistance, swipeContainer.scrollLeft, swipeContainer.clientWidth);
+            if(actionLeft !== undefined && actionRight !== undefined) {
+                if (swipeDistance < minDistance * -1) {
+                    console.log('swiped left')
+                    if(actionLeft !== undefined && typeof actionLeft === "function") {
+                        actionLeft();
+                        swipeContainer.remove();
+                    }
+                } else if (swipeDistance > minDistance) {
+                    console.log('swiped right')
+                    if(actionRight !== undefined && typeof actionRight === "function") {
+                        actionRight();
+                        swipeContainer.remove();
+                    }
+                }
+            } else if(actionLeft !== undefined) {
+                if (swipeDistance * -1 > minDistance) {
+                    console.log("swiped right");
+                    actionLeft();
+                    swipeContainer.remove();
+                }
+            } else if(actionRight !== undefined) {
+                if (swipeContainer.scrollLeft > minDistance) {
+                    console.log("swiped right");
+                    actionRight();
+                    swipeContainer.remove();
+                }
+            }
+
+        })
+        // swipeContainer.addEventListener("touchend", () => {
+        //     console.log("swipe touchend triggered");
+        //     const swipeDistance = swipeContainer.scrollLeft - swipeContainer.clientWidth;
+        //     console.log(swipeDistance, swipeContainer.scrollLeft, swipeContainer.clientWidth);
+        //     if (swipeDistance < minDistance * -1) {
+        //         console.log('swiped left')
+        //         if(actionLeft !== undefined && typeof actionLeft === "function") {
+        //             actionLeft();
+        //             swipeContainer.remove()
+        //         }
+        //     } else if (swipeDistance > minDistance) {
+        //         console.log('swiped right')
+        //         if(actionRight !== undefined && typeof actionRight === "function") {
+        //             actionRight();
+        //             swipeContainer.remove()
+        //         }
+        //     } else {
+        //         console.log(`did not swipe ${minDistance}px`)
+        //     }
+        // })
+
+    } else {
+        return false
+    }
+
+}
+
+const success = ({message, autoHide = true, duration = 5000, swipe = false}) => {
     if (!message) {
         return false
     }
@@ -36,20 +138,32 @@ const success = ({message, autoHide = true, duration = 5000}) => {
     if(toastWrapper?.classList?.contains("hidden")){
         toastWrapper.classList.remove("hidden")
     }
-    toastWrapper.appendChild(successToast);
-    if(autoHide) {
-        successToast.classList.add("auto-hide");
-        // successToast.setAttribute("data-duration", duration);
-        // successToast.style.setProperty("--duration", duration);
-        setTimeout(() => closeToast(toastWrapper, successToast), duration);
+
+    if (swipe) {
+        Swipe({
+            parent: toastWrapper,
+            main: successToast,
+            actionRight: () => closeToast(toastWrapper, successToast),
+            distance: 120,
+            autoHide: autoHide,
+            duration: duration,
+        })
+    } else {
+        toastWrapper.appendChild(successToast);
+        if(autoHide) {
+            successToast.classList.add("auto-hide");
+            setTimeout(() => closeToast(toastWrapper, successToast), duration);
+        }
+
+        successToast.querySelector(".close-toaster").addEventListener("click", () => {
+            closeToast(toastWrapper, successToast)
+        })
     }
 
-    successToast.querySelector(".close-toaster").addEventListener("click", () => {
-        closeToast(toastWrapper, successToast)
-    })
+
 }
 
-const error = ({message, autoHide = true, duration = 5000}) => {
+const error = ({message, autoHide = true, duration = 5000, swipe = false}) => {
     let toastWrapper = document.querySelector(".toast-wrapper");
     if(!toastWrapper) {
         toastWrapper = document.createElement("div");
@@ -77,11 +191,22 @@ const error = ({message, autoHide = true, duration = 5000}) => {
     if(toastWrapper?.classList?.contains("hidden")){
         toastWrapper.classList.remove("hidden")
     }
-    toastWrapper.appendChild(errorToast);
+
+    if (swipe) {
+        Swipe({
+            parent: toastWrapper,
+            main: errorToast,
+            actionRight: () => closeToast(toastWrapper, errorToast),
+            distance: 120,
+            autoHide: autoHide,
+            duration: duration,
+        })
+    } else {
+        toastWrapper.appendChild(errorToast);
+    }
+
     if(autoHide) {
         errorToast.classList.add("auto-hide");
-        // errorToast.setAttribute("data-duration", duration);
-        // errorToast.classList.style("--duration", duration);
         setTimeout(() => closeToast(toastWrapper, errorToast), duration);
     }
     errorToast.querySelector(".close-toaster").addEventListener("click", () => {
@@ -89,7 +214,7 @@ const error = ({message, autoHide = true, duration = 5000}) => {
     })
 }
 
-const warning = ({message, autoHide = true, duration = 5000}) => {
+const warning = ({message, autoHide = true, duration = 5000, swipe = false}) => {
     let toastWrapper = document.querySelector(".toast-wrapper");
     if(!toastWrapper) {
         toastWrapper = document.createElement("div");
@@ -117,16 +242,27 @@ const warning = ({message, autoHide = true, duration = 5000}) => {
     if(toastWrapper?.classList?.contains("hidden")){
         toastWrapper?.classList?.remove("hidden")
     }
-    toastWrapper.appendChild(warningToast);
-    if(autoHide) {
-        warningToast.classList.add("auto-hide");
-        // warningToast.setAttribute("data-duration", duration);
-        // warningToast.style.setProperty("--duration", duration);
-        setTimeout(() => closeToast(toastWrapper, warningToast), duration);
+
+    if (swipe) {
+        Swipe({
+            parent: toastWrapper,
+            main: warningToast,
+            actionRight: () => closeToast(toastWrapper, warningToast),
+            distance: 120,
+            autoHide: autoHide,
+            duration: duration,
+        })
+    } else {
+        toastWrapper.appendChild(warningToast);
+        if(autoHide) {
+            warningToast.classList.add("auto-hide");
+            setTimeout(() => closeToast(toastWrapper, warningToast), duration);
+        }
+        warningToast.querySelector(".close-toaster").addEventListener("click", () => {
+            closeToast(toastWrapper, warningToast)
+        })
     }
-    warningToast.querySelector(".close-toaster").addEventListener("click", () => {
-        closeToast(toastWrapper, warningToast)
-    })
+
 }
 
 const Toast = {

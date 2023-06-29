@@ -228,10 +228,10 @@ export const addToCart = ({...props}) => {
         if (!!foundItem) {
             foundItem.quantity += newItem.quantity; // Increases quantity if found
             localStorage.cart = JSON.stringify([...cartItems]); // Stores new cart data in local storage
-            Toast.success({message: "Product quantity in the cart updated!"});
+            Toast.success({message: "Product quantity in the cart updated!", swipe: true, duration: 3000 });
         } else {
             localStorage.cart = JSON.stringify([...cartItems, newItem]); // Add new product data in local storage
-            Toast.success({message: "Successfully added new product in the cart!"});
+            Toast.success({message: "Successfully added new product in the cart!", swipe: true, duration: 3000 });
         }
 
     }
@@ -314,7 +314,7 @@ export const removeFromCart = (productId) => {
 
     localStorage.cart = JSON.stringify([...updatedCart]); // Store updated cart data after remove
 
-    Toast.warning({message: "Product has been removed!"});
+    Toast.warning({message: "Product has been removed!", swipe: true, duration: 3000 });
 
     renderCartItems("#cart-menu");
 }
@@ -323,7 +323,7 @@ export const removeFromCart = (productId) => {
 export const clearCart = () => {
     localStorage.cart = JSON.stringify([]);
     document.querySelector(".remove-all-wrap").style.display = "none";
-    Toast.error({message: "Cart cleared successfully!" });
+    Toast.error({message: "Cart cleared successfully!", swipe: true, duration: 3000 });
     renderCartItems("#cart-menu");
 }
 

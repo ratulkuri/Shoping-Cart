@@ -79,6 +79,37 @@
         @apply text-orange-500
     }
 
+
+    /* //////////////////////// Swiper Start /////////////////////////// */
+
+    .swiper-container {
+        @apply flex overflow-auto overflow-x-scroll scroll-snap-x-mandatory no-scrollbar
+    }
+
+    .swipe-element {
+        @apply scroll-snap-start p-1.5
+    }
+
+    .swiper-container .action,
+    .swiper-container .swipe-element {
+        @apply min-w-full
+    }
+
+    .swiper-container .action {
+        @apply flex items-center
+    }
+
+    /* .swiper-container .action.left-element {
+        @apply bg-rose-500
+    } */
+
+    .swiper-container .action.right-element {
+        @apply justify-end
+        /* bg-indigo-400 */
+    }
+
+    /* //////////////////////// Swiper End /////////////////////////// */
+
 }
 
 @layer utilities {
@@ -91,6 +122,13 @@
     .no-scrollbar {
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
+    }
+
+    .scroll-snap-x-mandatory {
+        scroll-snap-type: x mandatory;
+    }
+    .scroll-snap-start {
+        scroll-snap-align: start;
     }
 }
 

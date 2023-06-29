@@ -888,6 +888,64 @@ video {
   color: rgb(249 115 22 / var(--tw-text-opacity));
 }
 
+/* //////////////////////// Swiper Start /////////////////////////// */
+
+.swiper-container {
+  display: flex;
+  overflow: auto;
+  overflow-x: scroll;
+}
+
+.swiper-container::-webkit-scrollbar {
+  display: none;
+}
+
+.swiper-container {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  scroll-snap-type: x mandatory;
+}
+
+.swipe-element {
+  padding: 0.375rem;
+  scroll-snap-align: start;
+}
+
+.swiper-container .action,
+    .swiper-container .swipe-element {
+  min-width: 100%;
+}
+
+.swiper-container .\!action {
+  min-width: 100%;
+}
+
+.swiper-container .action {
+  display: flex;
+  align-items: center;
+}
+
+.swiper-container .\!action {
+  display: flex;
+  align-items: center;
+}
+
+/* .swiper-container .action.left-element {
+        @apply bg-rose-500
+    } */
+
+.swiper-container .action.right-element {
+  justify-content: flex-end;
+}
+
+.swiper-container .\!action.right-element {
+  justify-content: flex-end;
+}
+
+/* //////////////////////// Swiper End /////////////////////////// */
+
 .sr-only {
   position: absolute;
   width: 1px;
