@@ -1,4 +1,4 @@
-import { getProductById } from "./product.js";
+import { addModalTriggerListener, getProductById } from "./product.js";
 import Toast from "./toaster.js";
 
 // Defines cart panel toggle function
@@ -184,6 +184,8 @@ export const renderCartItems = (selector) => {
             })
         }
 
+        let qvTogglers = cartMenuElm.querySelectorAll(".quick-view")
+        addModalTriggerListener(qvTogglers);
         increaseCartQty(cartMenuElm); // Initalize cart item quantity increase function
         decreaseCartQty(cartMenuElm); // Initalize cart item quantity decrease function
 

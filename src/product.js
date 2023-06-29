@@ -433,8 +433,7 @@ export const productThmbnailSlider = ({product, duration = 2000}) => {
     }
 }
 
-export const productModalInit = () => {
-    const togglers = document.querySelectorAll(".quick-view");
+export const addModalTriggerListener = (togglers) => {
     for (let toggler of togglers) {
         // console.log(productID);
         let productID = toggler.getAttribute("data-product-id");
@@ -461,6 +460,12 @@ export const productModalInit = () => {
         }
 
     }
+}
+
+export const productModalInit = () => {
+    const togglers = document.querySelectorAll(".product-list .quick-view");
+
+    addModalTriggerListener(togglers);
 
     let qvAddToCartBtn = document.getElementById("qv-add-to-cart");
     let qvQtyIncreaseBtn = document.getElementById("qv-increase-qty");
