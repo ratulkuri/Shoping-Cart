@@ -14,8 +14,9 @@ const toggleMenu = () => {
         }
     })
 
-    trigger.addEventListener("blur", () => {
-        if(elm.classList.contains("active")) {
+    elm.addEventListener("click", (e) => {
+        // let menuItem = elm.querySelector(".menu-item:not(.dropdown)")
+        if(!e.target.classList.contains("dropdown") && elm.classList.contains("active")) {
             elm.classList.remove("active");
         }
     })

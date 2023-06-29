@@ -140,14 +140,14 @@ export const renderCartItems = (selector) => {
                             <div>
                                 <div class="flex justify-between text-base font-medium text-gray-900">
                                     <h3>
-                                        <a href="#" data-product-id="${product?.id}" data-modal-target="#product-modal" class="quick-view">${product?.title}</a>
+                                        <a href="#" data-product-id="${product?.id}" data-modal-target="#product-modal" class="quick-view line-clamp-1">${product?.title}</a>
+                                        <p class="mt-1 text-sm line-clamp-1 text-gray-500">${product?.brand}</p>
                                     </h3>
                                     <div class="flex items-end flex-col">
                                         <p class="ml-4">$${(item?.quantity * product?.price)}</p>
                                         <p class="text-xs text-gray-400 font-normal whitespace-nowrap ml-4">${item?.quantity} &#x2715; $${product?.price}</p>
                                     </div>
                                 </div>
-                                <p class="mt-1 text-sm text-gray-500">${product?.brand}</p>
                             </div>
                             <div class="flex flex-1 items-end justify-between text-sm">
                                 <span class="inline-flex items-center text-gray-500 gap-2">
