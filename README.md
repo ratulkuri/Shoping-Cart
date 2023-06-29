@@ -2,7 +2,7 @@
 
 This repository contains the source code for an Ecommerce website's frontend designed using JavaScript ES6. The website allows users to browse products, view their shopping cart, and perform various shopping-related actions.
 
-## [SEE DEMO](https://kkmegashop.netlify.app/)
+## <a href="https://kkmegashop.netlify.app/" target="_blank" rel="noopener noreferrer">SEE DEMO</a>
 
 ## Table of Contents
 
