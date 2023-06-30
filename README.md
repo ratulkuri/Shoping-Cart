@@ -5,18 +5,8 @@ This repository contains the source code for an Ecommerce website's frontend des
 ## <a href="https://kkmegashop.netlify.app/" target="_blank" rel="noopener noreferrer">SEE DEMO</a>
 
 ## Table of Contents
-
-- [Installation](#installation)
 - [Features](#features)
 - [Usage](#usage)
-
-## Installation
-
-To run the Ecommerce website locally, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/ratulkuri/assignment-module-4.git`
-2. Navigate to the project directory: `cd assignment-module-4`
-3. Open the `index.html` file in your preferred web browser.
 
 ## Features
 
