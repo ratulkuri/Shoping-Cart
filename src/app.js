@@ -1,6 +1,5 @@
-import Products, { productModalInit, rederProductList } from './product.js';
+import { productModalInit, rederProductList } from './product.js';
 import InitCart from './cart.js';
-import Toast from './toaster.js';
 
 const toggleMenu = () => {
     let trigger = document.querySelector("#toggle-mobile-menu")

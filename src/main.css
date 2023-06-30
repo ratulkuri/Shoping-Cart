@@ -781,7 +781,6 @@ video {
   display: flex;
   max-height: 100vh;
   flex-direction: column;
-  justify-content: center;
   gap: 1rem;
   overflow-y: auto;
   padding-left: 2.5rem;
@@ -920,6 +919,7 @@ video {
 
 .swiper-container {
   display: flex;
+  flex-shrink: 0;
   overflow: auto;
   overflow-x: scroll;
 }
